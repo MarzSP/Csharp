@@ -1,0 +1,40 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string inputFile = "input.txt";
+        string outputFile = "output.txt";
+
+        try
+        {
+            // This reads the data from the input file
+            string[] lines = File.ReadAllLines(inputFile);
+
+            // Process the data (e.g., convert to uppercase)
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i] = lines[i].ToUpper();
+            }
+
+            // Write the modified data to the output file
+            File.WriteAllLines(outputFile, lines);
+
+            Console.WriteLine("File processing completed successfully.");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Input file not found. Please make sure the file exists.");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"An error occurred while processing the file: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
+    }
+}
