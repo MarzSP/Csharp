@@ -1,0 +1,31 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        try
+        {
+            string apiUrl = "https://api.buienradar.nl/data/public/2.0/jsonfeed";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                // Process the weather data
+                Console.WriteLine("Weather Information:");
+                Console.WriteLine("---------------------");
+                Console.WriteLine(responseBody);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+}
